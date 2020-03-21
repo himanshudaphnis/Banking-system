@@ -5,21 +5,24 @@
 <!--Index page-->
 <main>
   <form action="">
-    <label for="userId">Username</label>
+    <label for="username">Username:</label>
     <input type="text" name="username" id="username">
-    <label for="firstName">First Name</label>
-    <input type="text" name="firstName" id="firstName">
-    <label for="lastName">Last Name</label>
-    <input type="text" name="lastName" id="lastName">
-    <label for="age">Age</label>
-    <input type="number" name="age" id="age">
-    <button id="addBtn" >Sign Up</button>
+    <label for="email">Email ID:</label>
+    <input type="email" name="email" id="email">
+    <label for="balance">Balance:</label>
+    <input type="number" name="balance" id="balance">
+    <label for="email">Password:</label>
+    <input type="password" name="password" id="password">
+    
+    <button id="signUp">Sign Up</button>
+    <button id="signIn">Sign In</button>
   </form>
 </main>
 
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-auth.js"></script>
 
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
@@ -43,33 +46,46 @@
 </script>
 
 <script>
-console.log("I m there");
-let addBtn = document.getElementById("addBtn");
-addBtn.addEventListener("click",addData);
-function addData() {
-
-let username = document.getElementById("useranme");
-let firstName = document.getElementById("firstName");
-let lastName = document.getElementById("lastName");
-let age = document.getElementById("age");
-
-
-console.log(username.value);
-/*const database = firebase.database();
-//const usersRef = database.ref("/users");
-
-e.preventDefault();
-  /*usersRef.child(e.username.value).set({
-    first_name: e.firstName.value,
-    last_name: e.lastName.value,
-    age: age.value
+  let signUp = document.getElementById("signUp");
+  const balance = document.getElementById('balance');
+  signUp.addEventListener('click', e => {
+  e.preventDefault();
+  var email = document.getElementById("email");
+  var password = document.getElementById("password");
+  const promise = firebase.auth().createUserWithEmailAndPassword(email.value, password.value).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // ...
+});
+const database = firebase.database();
+const usersRef = database.ref('/users');
+usersRef.child(username.value).set({
+  username: username.value,
+    email: email.value,
+    balance: balance.value
   });
-  database.ref('/users'+username.value).set({
-    first_name: e.firstName.value,
-    last_name: e.lastName.value,
-    age: age.value
-  });*/
-}
+alert("account created");
+});
+</script>
+
+<script>
+  let signIn = document.getElementById("signIn");
+
+  signIn.addEventListener('click', e => {
+  e.preventDefault();
+  var email = document.getElementById("email");
+  var password = document.getElementById("password");
+  firebase.auth().signInWithEmailAndPassword(email.value, password.value).catch(function(error) {
+  // Handle Errors here.
   
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  alert("account signed in as "+email.value);
+  //window.location.replace("http://localhost:4000/");
+});
+window.location.replace("http://localhost:4000/user");
+
+});
 </script>
 @endsection

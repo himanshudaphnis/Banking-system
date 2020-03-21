@@ -1,0 +1,86 @@
+@layout('layouts.app')
+
+@section('content')
+<h1>User Page</h1>
+<label for="username">Username:</label>
+<!--input type="text" name="username" id="username"-->
+<h2 id="username" ></h2>
+<label for="email">Email:</label>
+<h2 id="email"></h2>
+<label for="balance">Balance:</label>
+<h2 id="balance"></h2>
+
+<form action="">
+<label for="transfer">Transfer To:</label>
+<input type="text" id="transferTo">
+<label for="transfer">Amount:</label>
+<input type="number" id="amount">
+<button id="submit">Transfer</button>
+</form>
+
+<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-auth.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCqcnSS_pd-oTc28eXFHwh_uP0rnAltrEE",
+    authDomain: "banking-app-3ad7d.firebaseapp.com",
+    databaseURL: "https://banking-app-3ad7d.firebaseio.com",
+    projectId: "banking-app-3ad7d",
+    storageBucket: "banking-app-3ad7d.appspot.com",
+    messagingSenderId: "975707194890",
+    appId: "1:975707194890:web:be338cbfa6c49813cd41f3",
+    measurementId: "G-S74YFP236J"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+<script>
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+
+    k = user.email;
+    var email = user.email;
+    //console.log(k);
+    document.getElementById("email").innerHTML = email;  
+    var database = firebase.database();
+
+    firebase.database().ref('users/').on('value',function (snapshot) {
+
+  // getting data
+  snapshot.forEach((user) => {
+    if(user.val().email==k)
+    {
+      document.getElementById("balance").innerHTML = user.val().balance;
+      document.getElementById("username").innerHTML = user.val().username;
+    }
+  });
+      });
+  } else {
+    // User is signed out.
+    // ...
+    alert("signed out");
+  }
+});
+
+let submit = document.getElementById("submit");
+submit.addEventListener('click', e => {
+
+function writeUserData(username) {
+  firebase.database().ref('users/' + username).set({
+    balance : balance-amount
+  });
+  console.log(email1);
+}
+function transferToThisAccount(transferTo) {
+  firebase.database().ref('users/' + username).set({
+    balance : balance+amount
+  });
+}
+});
+</script>
+@endsection

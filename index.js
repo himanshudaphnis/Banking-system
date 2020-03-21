@@ -11,9 +11,15 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/login", (req, res) => {
+/*app.get("/login", (req, res) => {
   res.sendFile(path.resolve(__dirname, "pages/login.html"));
+});*/
+
+app.get("/user", (req, res) => {
+  res.render("user");
 });
+
+//app.get("/user/:id", userPageController);
 
 app.listen(4000, () => {
   console.log("App listening on port 4000");
