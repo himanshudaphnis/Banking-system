@@ -1,0 +1,75 @@
+@layout('layouts.app')
+
+@section('content')
+
+<!--Index page-->
+<main>
+  <form action="">
+    <label for="userId">Username</label>
+    <input type="text" name="username" id="username">
+    <label for="firstName">First Name</label>
+    <input type="text" name="firstName" id="firstName">
+    <label for="lastName">Last Name</label>
+    <input type="text" name="lastName" id="lastName">
+    <label for="age">Age</label>
+    <input type="number" name="age" id="age">
+    <button id="addBtn" >Sign Up</button>
+  </form>
+</main>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-database.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCqcnSS_pd-oTc28eXFHwh_uP0rnAltrEE",
+    authDomain: "banking-app-3ad7d.firebaseapp.com",
+    databaseURL: "https://banking-app-3ad7d.firebaseio.com",
+    projectId: "banking-app-3ad7d",
+    storageBucket: "banking-app-3ad7d.appspot.com",
+    messagingSenderId: "975707194890",
+    appId: "1:975707194890:web:be338cbfa6c49813cd41f3",
+    measurementId: "G-S74YFP236J"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
+<script>
+console.log("I m there");
+let addBtn = document.getElementById("addBtn");
+addBtn.addEventListener("click",addData);
+function addData() {
+
+let username = document.getElementById("useranme");
+let firstName = document.getElementById("firstName");
+let lastName = document.getElementById("lastName");
+let age = document.getElementById("age");
+
+
+console.log(username.value);
+/*const database = firebase.database();
+//const usersRef = database.ref("/users");
+
+e.preventDefault();
+  /*usersRef.child(e.username.value).set({
+    first_name: e.firstName.value,
+    last_name: e.lastName.value,
+    age: age.value
+  });
+  database.ref('/users'+username.value).set({
+    first_name: e.firstName.value,
+    last_name: e.lastName.value,
+    age: age.value
+  });*/
+}
+  
+</script>
+@endsection
